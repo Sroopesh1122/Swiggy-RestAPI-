@@ -47,13 +47,16 @@ public class SecurityConfig {
 		httpSecurity.csrf(csrf->csrf.disable())
 		.cors(cors->cors.configurationSource(corsConfigurationSource()))
 		.authorizeHttpRequests(request->request.
-				requestMatchers("/auth/**").permitAll()
-				.requestMatchers(
-	                   "/api/menu/suggestions/**",
-	                   "/api/menu/**",
-	                   "/api/review/menuItem",
-	                   "/api/menu/similar",
-	                   "/api/restaurant/*"
+				requestMatchers(
+					   "/auth/**",
+	                   "/api/menu/public/**",
+	                   "/api/cart/public/**",
+	                   "/api/review/public/**",
+	                   "api/deliveries/public/**",
+	                   "/api/order/public/**",
+	                   "/api/payment/public/**",
+	                   "/api/restaurant/public/**",
+	                   "/api/user/public/**"
 	                ).permitAll()
 				.requestMatchers(
 	                    "/v3/api-docs/**",

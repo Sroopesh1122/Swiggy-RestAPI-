@@ -15,7 +15,7 @@ import com.shivu.swiggy_api.services.DeliveryDetails;
 public class DevileryPartnerController
 {
 
-   @GetMapping("/profile")
+   @GetMapping("/secure/profile")
    @PreAuthorize("hasRole('DELIVERY')")
    public ResponseEntity<?> getProfile(
 		   @AuthenticationPrincipal DeliveryDetails deliveryDetails)

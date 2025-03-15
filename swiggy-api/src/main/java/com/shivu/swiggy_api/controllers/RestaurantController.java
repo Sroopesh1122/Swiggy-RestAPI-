@@ -23,14 +23,14 @@ public class RestaurantController {
 	private  IRestaurantService restaurantService;
 
 	
-	@GetMapping("/top-rated")
+	@GetMapping("/public/top-rated")
 	public List<Restaurant> topFiveRestaurant(){
 		return restaurantService.getTopFiveRestaurants();
 	}
 	
 	
 	
-	@GetMapping("/profile")
+	@GetMapping("/secure/profile")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public ResponseEntity<?> getRestaurantById(@AuthenticationPrincipal RestaurantDetails restaurantDetails)
 	{
@@ -40,7 +40,7 @@ public class RestaurantController {
 	}
 	
 	
-	@GetMapping("/{id}")
+	@GetMapping("/public/{id}")
 	public ResponseEntity<?> getRestaurantById(@PathVariable("id") Integer rId)
 	{
 		

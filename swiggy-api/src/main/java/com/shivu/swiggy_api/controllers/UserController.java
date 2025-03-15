@@ -13,7 +13,7 @@ import com.shivu.swiggy_api.services.CustomerDetails;
 @RequestMapping("/api/user")
 public class UserController
 {
-	@GetMapping("/profile")
+	@GetMapping("/secure/profile")
 	@PreAuthorize("hasRole('CUSTOMER')") // helps to check role
     public ResponseEntity<?> getProfileByToken(@AuthenticationPrincipal CustomerDetails customerDetails)
     {

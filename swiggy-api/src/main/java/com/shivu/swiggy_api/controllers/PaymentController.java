@@ -30,7 +30,7 @@ public class PaymentController {
 	@Value("${RAZORPAY_SECRET_KEY}")
 	private String razorPaySecretKey;
 
-	@PostMapping("/create/order")
+	@PostMapping("/secure/create/order")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> createPayzorpayOrder(@RequestBody CreateOrderRequest request) {
 		Map<String, String> response = new HashMap<>();
@@ -56,7 +56,7 @@ public class PaymentController {
 
 	}
 	
-	@PostMapping("/verify")
+	@PostMapping("/secure/verify")
 	public ResponseEntity<?> verifyPayment(@RequestBody PaymentVerficationRequest request)
 	{
 		

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import com.shivu.swiggy_api.entity.DeliveryPartner;
 import com.shivu.swiggy_api.entity.Order;
 import com.shivu.swiggy_api.exception.DeliveryException;
 import com.shivu.swiggy_api.request.DeliveryStatusAndCodeVerifyRequest;
+import com.shivu.swiggy_api.services.DeliveryDetails;
 import com.shivu.swiggy_api.services.IDeliveriesServices;
 import com.shivu.swiggy_api.services.IOrderService;
 import com.shivu.swiggy_api.services.PaginationService;
@@ -38,7 +40,7 @@ public class DeliveriesController {
 	@Autowired
 	private IOrderService orderService;
 
-	@GetMapping("/")
+	@GetMapping("/public/")
 	public ResponseEntity<?> getDeliveries(
 			@RequestParam( required = false , defaultValue = "") String status,
 			@RequestParam Integer deliveryPartnerId , 
@@ -60,8 +62,9 @@ public class DeliveriesController {
 		 
 	}
 	
-	@PutMapping("/order/verify/status")
+	@PutMapping("/secure/order/verify/status")
 	public ResponseEntity<?> checkForDeliveryCodeAndMarkAsDelivered(
+			@AuthenticationPrincipal DeliveryDetails deliveryDetails,
 			@RequestBody DeliveryStatusAndCodeVerifyRequest request)
 	{
 		

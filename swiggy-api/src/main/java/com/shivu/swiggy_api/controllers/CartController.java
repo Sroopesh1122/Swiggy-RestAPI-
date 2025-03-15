@@ -40,7 +40,7 @@ public class CartController {
 	@Autowired
 	private IUserService userService;
 
-	@PostMapping("/add")
+	@PostMapping("/secure/add")
 	@PreAuthorize("hasRole('CUSTOMER')") // if other roles give 403 forbidden error 
 	public ResponseEntity<?> addToCart(
 			@AuthenticationPrincipal CustomerDetails customerDetails,
@@ -79,7 +79,7 @@ public class CartController {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/")
+	@GetMapping("/secure/")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> getAllCartByUser(
 			@AuthenticationPrincipal CustomerDetails customerDetails , 
@@ -99,7 +99,7 @@ public class CartController {
 
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/secure/")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> deleteItemFromCart(
 			@AuthenticationPrincipal CustomerDetails customerDetails ,

@@ -57,7 +57,7 @@ public class ReviewController {
 	@Autowired
 	private IUserService userService;
 
-	@PostMapping("/")
+	@PostMapping("/secure/")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> addReview(
 			@AuthenticationPrincipal CustomerDetails customerDetails ,
@@ -122,7 +122,7 @@ public class ReviewController {
 
 	}
 
-	@GetMapping("/menuItem")
+	@GetMapping("/public/menuItem")
 	public ResponseEntity<?> getAllReviewsByItemId(
 			@RequestParam Integer id , 
 			@RequestParam(required = false ,defaultValue = "1") Integer page , 
@@ -138,7 +138,7 @@ public class ReviewController {
 	}
 	
 
-	@GetMapping("/restaurant")
+	@GetMapping("/secure/restaurant")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public ResponseEntity<?> getAllReviewsOfRestaurant(
 			@AuthenticationPrincipal RestaurantDetails restaurantDetails ,

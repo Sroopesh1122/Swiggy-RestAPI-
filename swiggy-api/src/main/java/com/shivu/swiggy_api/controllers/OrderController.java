@@ -84,7 +84,7 @@ public class OrderController {
 	@Autowired
 	private IUserService userService;
 
-	@PostMapping("/")
+	@PostMapping("/secure/")
 	@Transactional
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> createOrder(@AuthenticationPrincipal CustomerDetails customerDetails,
@@ -139,7 +139,7 @@ public class OrderController {
 
 	}
 
-	@GetMapping("/user")
+	@GetMapping("/secure/user")
 	@PreAuthorize("hasRole('CUSTOMER')")
 	public ResponseEntity<?> getAllOrdersByUser(@AuthenticationPrincipal CustomerDetails customerDetails,
 			@RequestParam(defaultValue = "1", required = false) Integer page,
@@ -172,7 +172,7 @@ public class OrderController {
 
 	}
 
-	@GetMapping("/not-delivered")
+	@GetMapping("/public/not-delivered")
 	public ResponseEntity<?> getAllUndeliveredOrders(@RequestParam(defaultValue = "1", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer limit,
 			@RequestParam(required = false) String q) {
@@ -193,7 +193,7 @@ public class OrderController {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/")
+	@GetMapping("/public/")
 	public ResponseEntity<?> getOrderByOrderId(@RequestParam Integer orderId) {
 		Map<String, Object> response = new HashMap<>();
 		Order order = orderService.getOrderById(orderId);
@@ -223,7 +223,7 @@ public class OrderController {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/restaurant")
+	@GetMapping("/secure/restaurant")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public ResponseEntity<?> getOrdersByRestaurant(
 			@AuthenticationPrincipal RestaurantDetails restaurantDetails,
@@ -259,7 +259,7 @@ public class OrderController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PutMapping("/status")
+	@PutMapping("/secure/status")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public ResponseEntity<?> updateOrderStatus(
 			@AuthenticationPrincipal RestaurantDetails restaurantDetails,
@@ -278,7 +278,7 @@ public class OrderController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping("/pick")
+	@PostMapping("/secure/pick")
 	@PreAuthorize("hasRole('DELIVERY')")
 	public ResponseEntity<?> pickOrder(@AuthenticationPrincipal DeliveryDetails deliveryDetails,
 			@RequestBody PickOrderRequest request) {

@@ -53,7 +53,7 @@ public class MenuItemController {
 
 	// Used by Restaurant
 	@Transactional
-	@PostMapping("/create")
+	@PostMapping("/secure/create")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public MenuItem menuitem(@AuthenticationPrincipal RestaurantDetails restaurantDetails,
 			@RequestBody MenuItemRequest request) {
@@ -85,7 +85,7 @@ public class MenuItemController {
 
 	// Used by restaurant
 
-	@GetMapping("/restaurant/menu-list")
+	@GetMapping("/secure/restaurant/menu-list")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public Page<MenuItem> getAllRestaurantItem(
 			@AuthenticationPrincipal RestaurantDetails restaurantDetails,
@@ -103,7 +103,7 @@ public class MenuItemController {
 	}
 
 	// used by restaurant
-	@GetMapping("/restaurant/menu/{menuId}")
+	@GetMapping("/secure/restaurant/menu/{menuId}")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public MenuItem getMenuItem(
 			@AuthenticationPrincipal RestaurantDetails restaurantDetails,
@@ -113,7 +113,7 @@ public class MenuItemController {
 	}
 
 	// used by restaurant
-	@PutMapping("/update")
+	@PutMapping("/secure/update")
 	@PreAuthorize("hasRole('RESTAURANT')")
 	public ResponseEntity<?> updateMenuItem(@AuthenticationPrincipal RestaurantDetails restaurantDetails,
 			@RequestBody MenuUpdateRequest request) {
@@ -140,7 +140,7 @@ public class MenuItemController {
 	}
 
 	// All
-	@GetMapping("/")
+	@GetMapping("/public/")
 	public ResponseEntity<?> getMenuItems(
 			@RequestParam(required = false) String q,
 			@RequestParam(required = false) Integer rId, 
@@ -149,7 +149,7 @@ public class MenuItemController {
 		return ResponseEntity.ok(menuItemService.findMenuItms(q, page, limit, rId));
 	}
 
-	@GetMapping("/suggestions")
+	@GetMapping("/public/suggestions")
 	public ResponseEntity<?> getSuggestionData(@RequestParam(required = false) String filter) {
 
 		Set<SuggestionResponse> suggestionData = menuItemService.getSuggestionData(filter);
@@ -157,7 +157,7 @@ public class MenuItemController {
 	}
 
 	// All
-	@GetMapping("/food")
+	@GetMapping("/public/food")
 	public ResponseEntity<?> getMenuItemsBySearchText(
 			@RequestParam(required = false, defaultValue = "") String q,
 			@RequestParam(required = false, defaultValue = "1") Integer page,
@@ -177,7 +177,7 @@ public class MenuItemController {
 	}
 
 	// All
-	@GetMapping("/{id}")
+	@GetMapping("/public/{id}")
 	public ResponseEntity<?> getMenuItemWithRestaurantDetails(
 		@AuthenticationPrincipal CustomerDetails customerDetails,	
 		@PathVariable(name = "id") Integer itemId)
@@ -192,7 +192,7 @@ public class MenuItemController {
 	}
 
 	// All
-	@GetMapping("/similar")
+	@GetMapping("/public/similar")
 	public ResponseEntity<?> getSimilarItemByCategory(
 			@RequestParam(name = "q" ,required = false,defaultValue = "") String searchText, 
 			@RequestParam Integer page,
